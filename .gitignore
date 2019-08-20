@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+/.idea/
+/venv/
+.gitignore
+.idea/markdown-navigator.xml
+.idea/markdown-navigator/
+.idea/misc.xml
+.idea/modules.xml
+.idea/test.iml
+.idea/vcs.xml
+.idea/workspace.xml
+venv/
