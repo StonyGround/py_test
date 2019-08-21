@@ -1,0 +1,8 @@
+hoolink_0.wav	打开单灯
+hoolink_1.wav	关闭单灯
+hoolink_2.wav	打开a9
+hoolink_3.wav	关闭a9
+hoolink_4.wav	播放音箱
+hoolink_5.wav	关闭音箱
+hoolink_6.wav	打开显示屏
+hoolink_7.wav	关闭显示屏

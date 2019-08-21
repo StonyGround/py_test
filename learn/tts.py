@@ -10,7 +10,7 @@ import win32com.client as wincl
 from tkinter import *
 
 
-def text2Speech():
+def text2speech():
     text = e.get()
     speak = wincl.Dispatch("SAPI.SpVoice")
     speak.Speak(text)
@@ -28,6 +28,6 @@ lbl = Label(f, text="Enter your Text here : ")
 lbl.grid(row=1, column=0, padx=10, pady=2)
 e = Entry(f, width=30)
 e.grid(row=2, column=0, padx=10, pady=2)
-btn = Button(f, text="Speak", command=text2Speech)
+btn = Button(f, text="Speak", command=text2speech)
 btn.grid(row=3, column=0, padx=20, pady=10)
 tts.mainloop()
