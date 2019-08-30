@@ -1,8 +1,17 @@
-from gtts import gTTS
+import fileinput
 import os
 
-for line in open(os.path.abspath("tag.txt")):
-    text = line.split()
-    tts = gTTS(text=text[1], lang='zh-cn')
-    tts.save(text[0])
-    print("命令[" + text[1] + "]转换完成")
+import librosa
+from gtts import gTTS
+
+for line in fileinput.input(os.path.abspath("tag.txt"), inplace=True):
+    file_name = "hoolink_" + str(fileinput.lineno()) + ".wav"
+    text = file_name + line.rstrip()
+    tts = gTTS(text=line.rstrip(), lang='zh-cn')
+    tts.save(file_name)
+    print(text)
+
+    # 采样率转16K
+    y, sr = librosa.load(file_name, sr=None)
+    y_16k = librosa.resample(y, sr, 16000)
+    librosa.output.write_wav(file_name, y_16k, 16000)
