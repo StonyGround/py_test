@@ -1,3 +1,6 @@
+"""
+gtts文字转语音
+"""
 import fileinput
 import os
 

@@ -1,3 +1,7 @@
+"""
+钉钉自动打卡
+"""
+
 import random
 import time
 

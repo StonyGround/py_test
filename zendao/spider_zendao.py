@@ -1,3 +1,6 @@
+"""
+禅道爬虫
+"""
 import hashlib
 
 import requests

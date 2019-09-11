@@ -1,8 +1,12 @@
+"""
+bing壁纸自动更新
+"""
+import ctypes
+import os.path
 import time
 import urllib.request
+
 import requests
-import os.path
-import ctypes
 
 
 def save_img(img_url, dirname):
