@@ -2,9 +2,6 @@
 钉钉自动打卡
 """
 
-import random
-import time
-
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.webdriver.common.by import By
@@ -17,7 +14,7 @@ desired_caps = {'platformName': 'Android', 'deviceName': 'VTR_AL00',
 
 
 def permission_allow():
-    time.sleep(3)
+    # time.sleep(3)
     for i in range(5):
         loc = (By.XPATH, "//*[@text='始终允许']")
         try:
@@ -29,9 +26,9 @@ def permission_allow():
 
 if __name__ == '__main__':
     # 延迟执行
-    delay = random.randint(0, 5 * 60)
-    print(delay)
-    time.sleep(delay)
+    # delay = random.randint(0, 5 * 60)
+    # print(delay)
+    # time.sleep(delay)
     print('开始执行...')
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     # 获取当前分辨率
@@ -57,14 +54,15 @@ if __name__ == '__main__':
     WebDriverWait(driver, 5).until(expected_conditions.presence_of_element_located(agree)).click()
 
     # 等待首页初始化
-    print('等待首页加载20s...')
-    time.sleep(20)
-    print('自动滑动...')
-    driver.swipe(1 / 2 * el_x, 1 / 2 * el_y, 1 / 2 * el_x, 1 / 2 * el_y - 600 * el_y / 1920)
+    # print('等待首页加载20s...')
+    # time.sleep(20)
 
     # 点击考勤打卡
     punch = (By.XPATH,
              '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.FrameLayout/com.uc.webview.export.WebView/com.uc.webkit.be/android.webkit.WebView/android.view.View/android.view.View[6]/android.view.View[3]/android.view.View[1]/android.view.View[1]/android.view.View[1]/android.view.View')
-    WebDriverWait(driver, 5).until(expected_conditions.presence_of_element_located(punch)).click()
+    p = WebDriverWait(driver, 20).until(expected_conditions.presence_of_element_located(punch))
+    print('自动滑动...')
+    driver.swipe(1 / 2 * el_x, 1 / 2 * el_y, 1 / 2 * el_x, 1 / 2 * el_y - 600 * el_y / 1920)
+    p.click()
     # 权限处理
     permission_allow()
