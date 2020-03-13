@@ -1,6 +1,8 @@
 """
 钉钉自动打卡
 """
+import random
+import time
 
 from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
@@ -26,9 +28,9 @@ def permission_allow():
 
 if __name__ == '__main__':
     # 延迟执行
-    # delay = random.randint(0, 5 * 60)
-    # print(delay)
-    # time.sleep(delay)
+    delay = random.randint(0, 5 * 60)
+    print(delay)
+    time.sleep(delay)
     print('开始执行...')
     driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
     # 获取当前分辨率
