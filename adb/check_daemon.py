@@ -18,23 +18,17 @@ def getDevicesAll():
     return devices
 
 
-def runTelegram(devices):
+def checkDaemon(devices):
     # 打开
     for dName in devices:
         try:
-            os.popen(
-                "adb -s " + dName + " reboot")
+            for status in os.popen("adb -s " + dName + " shell pidof com.bc.daemon"):
+                if len(status) < 0:
+                    print(dName + "激活失败")
+                else:
+                    print(dName + "激活成功 pid=" + status)
         except:
             print(dName + "打开失败")
-
-
-def stopTelegram(devices):
-    # 关闭
-    for dName in devices:
-        try:
-            os.popen("adb -s " + dName + " shell am force-stop  com.android.contacts")
-        except:
-            print(dName + "关闭失败")
 
 
 if __name__ == "__main__":
@@ -42,10 +36,7 @@ if __name__ == "__main__":
         devices = getDevicesAll()
     except:
         print("获取设备出错")
-
-    res = input("继续请输入1:")
-    if int(res) == 1:
-        try:
-            runTelegram(devices)
-        except:
-            print("启动错误")
+    try:
+        checkDaemon(devices)
+    except:
+        print("启动错误")
