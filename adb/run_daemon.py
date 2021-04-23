@@ -21,14 +21,13 @@ def getDevicesAll():
   return devices
 
 
-def runDaemon(devices):
+def runDaemon(dName):
   # 打开
-  for dName in devices:
-    try:
-      os.popen(
-          "adb -s " + dName + " shell am start -n com.bc.daemon/.MainActivity ")
-    except:
-      print(dName + "打开失败")
+  try:
+    os.popen(
+        "adb -s " + dName + " shell am start -n com.bc.daemon/.MainActivity ")
+  except:
+    print(dName + "打开失败")
 
 
 def checkDaemon(devices):
@@ -41,6 +40,7 @@ def checkDaemon(devices):
       print(dName + "打开失败")
 
 
+# 0后台进程
 def download_apk(type):
   url = "https://api.beicaizs.com/compliance/app-release/get-current-version?isApp=" + str(
       type)
@@ -53,26 +53,10 @@ def download_apk(type):
       code.write(f.content)
 
 
-def install_apk(devices):
-  for dName in devices:
-    try:
-      os.popen(
-          "adb -s " + dName + " install daemon.apk ")
-    except:
-      print(dName + "安装失败")
-
-
 if __name__ == "__main__":
   download_apk(0)
-  try:
-    devices = getDevicesAll()
-    install_apk(devices)
-  except:
-    print("获取设备出错")
-
-  res = input("继续请输入1:")
-  if int(res) == 1:
-    try:
-      runDaemon(devices)
-    except:
-      print("启动错误")
+  devices = getDevicesAll()
+  for dName in devices:
+    for dName_ in os.popen("adb -s " + dName + " install daemon.apk "):
+      if 'Success' in dName_.strip():
+        runDaemon(dName)
